@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paparazzi 💙</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.lyrics {
+    position: absolute;
+    left: 7%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 43%;
+    z-index: 2;
+}
+
+.small {
+    font-size: 11px;
+    color: #778ba8;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+#lyric {
+    font-size: clamp(15px, 3vw, 22px);
+    font-weight: bold;
+    line-height: 1.5;
+    color: #e5f3ff;
+    text-shadow: 0 0 12px #238cff;
+    transition: opacity .7s, transform .7s;
+}
+
+.heart-area {
+    position: absolute;
+    right: 7%;
+    width: 48%;
+    max-width: 350px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heart {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: heartbeat 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px #168cff);
+}
+
+.heart:nth-child(2) {
+    width: 82%;
+    animation-delay: .15s;
+}
+
+.heart:nth-child(3) {
+    width: 64%;
+    animation-delay: .3s;
+}
+
+.heart:nth-child(4) {
+    width: 45%;
+    animation-delay: .45s;
+}
+
+.heart path {
+    fill: none;
+    stroke: #55b5ff;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 3 2;
+}
+
+.heart:nth-child(2) path {
+    stroke: #248dff;
+}
+
+.heart:nth-child(3) path {
+    stroke: #78ceff;
+}
+
+.heart:nth-child(4) path {
+    stroke: #b3e4ff;
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1) rotate(-2deg);
+    }
+    50% {
+        transform: scale(1.08) rotate(2deg);
+    }
+}
+
+.credit {
+    position: absolute;
+    bottom: 35px;
+    left: 7%;
+    color: #52647c;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.play-button {
+    position: absolute;
+    bottom: 65px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid #2468a9;
+    background: #06172a;
+    color: #b9ddff;
+    border-radius: 30px;
+    padding: 12px 24px;
+    font-size: 13px;
+    cursor: pointer;
+    z-index: 5;
+    box-shadow: 0 0 15px #126ac855;
+}
+
+@media(max-width:600px) {
+    .lyrics {
+        left: 7%;
+        width: 42%;
+    }
+
+    .heart-area {
+        right: 3%;
+        width: 53%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="scene">
+
+    <div class="lyrics">
+        <div class="small">LADY GAGA · PAPARAZZI</div>
+        <div id="lyric">Every beat, every moment...</div>
+    </div>
+
+    <div class="heart-area">
+
+        <svg class="heart" viewBox="0 0 200 200">
+            <path d="M100 175 C80 145 10 105 10 60 C10 5 80 5 100 55 C120 5 190 5 190 60 C190 105 120 145 100 175Z"/>
+        </svg>
+
+        <svg class="heart" viewBox="0 0 200 200">
+            <path d="M100 175 C80 145 10 105 10 60 C10 5 80 5 100 55 C120 5 190 5 190 60 C190 105 120 145 100 175Z"/>
+        </svg>
+
+        <svg class="heart" viewBox="0 0 200 200">
+            <path d="M100 175 C80 145 10 105 10 60 C10 5 80 5 100 55 C120 5 190 5 190 60 C190 105 120 145 100 175Z"/>
+        </svg>
+
+        <svg class="heart" viewBox="0 0 200 200">
+            <path d="M100 175 C80 145 10 105 10 60 C10 5 80 5 100 55 C120 5 190 5 190 60 C190 105 120 145 100 175Z"/>
+        </svg>
+
+    </div>
+
+    <div class="credit">MADE WITH LOVE · BLUE UNIVERSE</div>
+
+    <button class="play-button" onclick="startShow()">
+        ♡ START EXPERIENCE
+    </button>
+
+</div>
+
+<audio id="music" src="paparazzi.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
+
+</body>
+</html>
