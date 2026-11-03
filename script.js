@@ -1,16 +1,25 @@
 
-// =================================
-// PAPARAZZI - BLUE LOVE
-// =================================
+// ==========================================
+// PAPARAZZI - BLUE LOVE EXPERIENCE
+// ==========================================
 
+// LYRICS
 const lyrics = [
-    "Every beat, every moment...",
-    "Dancing underneath the stars...",
-    "A little love in the darkness...",
-    "Blue hearts never fade...",
-    "Forever in the spotlight..."
+    "Cause you know that baby I",
+    "I'm your biggest fan",
+    "I'll follow you until you love me",
+    "Papa-paparazzi",
+    "Baby, there's no other superstar",
+    "You know that I'll be",
+    "Your papa-paparazzi",
+    "Promise I'll be kind",
+    "But I won't stop until that boy is mine",
+    "Baby, you'll be famous",
+    "Chase you down until you love me",
+    "Papa-paparazzi"
 ];
 
+// SETTINGS
 let index = 0;
 let started = false;
 let lyricTimer;
@@ -18,11 +27,12 @@ let lyricTimer;
 const lyric = document.getElementById("lyric");
 const music = document.getElementById("music");
 
-// =================================
-// START MUSIC AND ANIMATION
-// =================================
+// ==========================================
+// START EXPERIENCE
+// ==========================================
 
 function startShow() {
+
     if (started) return;
 
     started = true;
@@ -30,7 +40,7 @@ function startShow() {
     music.volume = 0.8;
 
     music.play().catch(error => {
-        console.log("Audio gagal diputar:", error);
+        console.log("Music error:", error);
     });
 
     document.querySelector(".play-button").style.display = "none";
@@ -38,78 +48,97 @@ function startShow() {
     changeLyric();
 
     lyricTimer = setInterval(changeLyric, 3500);
+
 }
 
-// =================================
-// LYRICS ANIMATION
-// =================================
+// ==========================================
+// LYRICS TRANSITION
+// ==========================================
 
 function changeLyric() {
 
     lyric.style.opacity = "0";
-    lyric.style.transform = "translateY(12px)";
+    lyric.style.transform = "translateY(15px)";
 
     setTimeout(() => {
-
-        index = (index + 1) % lyrics.length;
 
         lyric.textContent = lyrics[index];
 
         lyric.style.opacity = "1";
         lyric.style.transform = "translateY(0)";
 
+        index++;
+
+        if (index >= lyrics.length) {
+            index = 0;
+        }
+
     }, 700);
+
 }
 
-// =================================
+// ==========================================
 // BLUE PARTICLES
-// =================================
+// ==========================================
 
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
-let w, h;
+let width;
+let height;
+
 let particles = [];
 
-function resize() {
+function resizeCanvas() {
 
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
 
 }
 
-window.addEventListener("resize", resize);
-resize();
+resizeCanvas();
 
-for (let i = 0; i < 120; i++) {
+window.addEventListener("resize", resizeCanvas);
+
+// CREATE PARTICLES
+
+for (let i = 0; i < 130; i++) {
 
     particles.push({
 
-        x: Math.random() * w,
-        y: Math.random() * h,
-        size: Math.random() * 1.7 + 0.3,
+        x: Math.random() * width,
+        y: Math.random() * height,
+
+        size: Math.random() * 1.8 + 0.3,
+
         alpha: Math.random(),
-        speed: Math.random() * 0.015 + 0.003
+
+        speed: Math.random() * 0.015 + 0.003,
+
+        drift: Math.random() * 0.3 - 0.15
 
     });
 
 }
 
-// =================================
 // DRAW PARTICLES
-// =================================
 
-function drawStars() {
+function drawParticles() {
 
-    ctx.clearRect(0, 0, w, h);
+    ctx.clearRect(0, 0, width, height);
 
     particles.forEach(p => {
 
         p.alpha += p.speed;
 
-        if (p.alpha > 1 || p.alpha < 0) {
+        if (p.alpha >= 1 || p.alpha <= 0) {
             p.speed *= -1;
         }
+
+        p.x += p.drift;
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
 
         ctx.beginPath();
 
@@ -122,7 +151,7 @@ function drawStars() {
         );
 
         ctx.fillStyle =
-            `rgba(75,170,255,${p.alpha})`;
+            `rgba(65,160,255,${p.alpha})`;
 
         ctx.shadowBlur = 12;
         ctx.shadowColor = "#168cff";
@@ -131,39 +160,43 @@ function drawStars() {
 
     });
 
-    requestAnimationFrame(drawStars);
+    requestAnimationFrame(drawParticles);
 
 }
 
-drawStars();
+drawParticles();
 
-// =================================
-// HEART GLOW EFFECT
-// =================================
+// ==========================================
+// MULTIPLE BLUE HEART GLOW
+// ==========================================
 
 let glow = 0;
 
-function animateGlow() {
+function animateHearts() {
 
     glow += 0.035;
 
-    document.querySelectorAll(".heart").forEach((heart, i) => {
+    const hearts = document.querySelectorAll(".heart");
 
-        const intensity = 8 + Math.sin(glow + i) * 8;
+    hearts.forEach((heart, i) => {
+
+        const intensity =
+            8 + Math.sin(glow + i * 0.5) * 8;
 
         heart.style.filter =
             `drop-shadow(0 0 ${intensity}px #168cff)`;
 
     });
 
-    requestAnimationFrame(animateGlow);
+    requestAnimationFrame(animateHearts);
 
 }
 
-animateGlow();
+animateHearts();
 
-// =================================
-// END
-// =================================
+// ==========================================
+// BLUE LIGHT FLASH
+// ==========================================
 
 console.log("BLUE LOVE EXPERIENCE READY");
+console.log("PAPARAZZI - LADY GAGA");
